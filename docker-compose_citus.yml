@@ -1,0 +1,40 @@
+version: '3'
+services:
+  coordinator:
+    image: citusdata/citus
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: books
+      POSTGRES_SHARED_PRELOAD_LIBRARIES: citus
+    volumes:
+      - ./data/db1:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  worker-1:
+    image: citusdata/citus
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: books
+      POSTGRES_SHARED_PRELOAD_LIBRARIES: citus
+    volumes:
+      - ./data/db2:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+
+  worker-2:
+    image: citusdata/citus
+    restart: always
+    environment:
+      PPOSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: books
+      POSTGRES_SHARED_PRELOAD_LIBRARIES: citus
+    volumes:
+      - ./data/db3:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
